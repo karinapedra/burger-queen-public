@@ -7,7 +7,7 @@ import useAuth from '../hooks/useAuth';
 const Private = ({ Item }) => {
   const { signed } = useAuth();
 
-  return signed > 0 ? <Item /> : <Signin />;
+  return signed > 0 ? <Item /> : <Signin />;{/* se signed > 0 -> condição ? expressão se verdadeiro : expressão se falso */}
 };
 
 const RoutesApp = () => {
