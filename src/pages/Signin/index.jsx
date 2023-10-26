@@ -21,17 +21,18 @@ const Signin = () => {
 
     const res = signin(email, password);
 
-      if(res) {
-        setError(res);
-        return;
-      }
+    if (res) {
+      setError(res);
+      return;
+    }
 
     navigate('/home');
   };
 
   return (
     <C.Container>
-      <C.Label>Login System</C.Label>
+      <C.Label>Login</C.Label>
+      {/* <img src='.../assets/brand/bq-logo-burger.png' alt="Logo" /> */}
       <C.Content>
         <Input
           type='email'
@@ -47,7 +48,7 @@ const Signin = () => {
         />
         <C.labelError>{error}</C.labelError>
         <Button Text='Sign in' onClick={handleLogin} />
-        </C.Content>
+      </C.Content>
     </C.Container>
   );
 };
