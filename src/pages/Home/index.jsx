@@ -1,10 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Button';
-import useAuth from '../../hooks/useAuth';
 import * as C from './styles';
 import './style.css';
-import Header from '../../components/Header';
 import Section from '../../components/Section';
 import ListTable from '../../components/ListTables';
 
@@ -76,13 +73,12 @@ const listTableData = [
 ]
 
 const Home = () => {
-  const { signout } = useAuth();
+  // const { signout } = useAuth();
   const navigate = useNavigate();
 
   return (
     <C.Container>
       <div className='App'>
-        <Header />
 
         <main>
           <Section
@@ -116,11 +112,11 @@ const Home = () => {
 
 
 
-
+{/* 
       <C.Title>Home</C.Title>
       <Button Text='Log Out' onClick={() => [signout(), navigate('/')]}>
         Log Out
-      </Button>
+      </Button> */}
     </C.Container>
   );
 };
