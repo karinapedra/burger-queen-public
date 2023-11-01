@@ -73,11 +73,9 @@ const listTableData = [
 ]
 
 const Home = () => {
-  // const { signout } = useAuth();
-  const navigate = useNavigate();
 
   return (
-    <C.Container>
+    <C.Container className='lateralSection'>
       <div className='App'>
 
         <main>

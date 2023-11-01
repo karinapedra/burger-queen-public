@@ -14,12 +14,11 @@
         "react","jsx-a11y", "import"
     ],
     "rules": {
-        // "import/no-extraneous-dependencies": "off", //desabiliar erro REACT
         "object-curly-newline": "off",
         "react/prop-types": "off",
         "react/react-in-jsx-scope": "off",
-        "react/function-component-definition": "off", //desabilitar regras de FUNÇÃO
-        "arrow-body-style": "off", //regra de arrow simplificada
+        "react/function-component-definition": "off", 
+        "arrow-body-style": "off", 
         "indent": [
             "error",
             2

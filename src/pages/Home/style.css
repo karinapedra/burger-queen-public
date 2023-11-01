@@ -53,14 +53,11 @@ main {
 }
 
 section {
-  color: white;
-  background-image: linear-gradient(90deg, #9572FC 0%, #43E7AD 50.52%, #E2D45C 100%);
+  color: rgb(24, 24, 24);
   padding-top: 4px;
-  border-radius: 10px;
 }
 
 .divSection {
-  background-color: #331879;
   padding: 32px;
   padding-top: 24px;
   border-radius: 8px;

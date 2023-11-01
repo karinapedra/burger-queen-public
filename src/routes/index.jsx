@@ -1,12 +1,13 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import Navigate from '../components/Navigate';
+import Navigate from '../components/Menu/Navigate';
 import Home from '../pages/Home';
 import Signin from '../pages/Signin';
 import Burger from '../pages/Burger';
 import Breakfast from '../pages/Breakfast';
 import Drinks from '../pages/Drinks'
 import Notification from '../pages/Notification'
+import '../styles/global'
 const Private = ({ Item }) => {
   const { signed } = useAuth();
 
@@ -16,7 +17,7 @@ const Private = ({ Item }) => {
 const RoutesApp = () => {
   const { signed } = useAuth();
   return (
-    <div>
+    <div id='principal'> 
       <BrowserRouter>
       {signed && <Navigate />} {/* Renderize o componente de navegação aqui */}
         <Routes>

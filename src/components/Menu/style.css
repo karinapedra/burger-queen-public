@@ -1,0 +1,52 @@
+
+#menuBar {
+  width: 30%;
+  display: flex;
+  align-items: center;
+}
+
+.custom-menu {
+  list-style: none;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logo-item {
+  display: flex;
+  align-items: center;
+  width: 20vh;
+}
+
+.search-item {
+  font-size: 20px;
+  opacity: 0.5;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 10px;
+}
+.category {
+  font-size: 20px;
+  opacity: 0.5;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.custom-menu li {
+  cursor: pointer;
+  margin: 10px 0;
+  font-size: 30px;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.custom-menu li.active {
+  background-color: #FFBD59;
+}
+
+

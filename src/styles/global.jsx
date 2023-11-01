@@ -14,6 +14,12 @@ const GlobalStyle = createGlobalStyle`
     background-color: #f0f2f5;
     font-family: Arial, Helvetica, sans-serif
   }
+
+  #principal {
+    display: flex;
+    flex-direction: row-reverse;
+
+  }
 `;
 
 export default GlobalStyle;
