@@ -2,32 +2,67 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import Navigate from '../components/Menu/Navigate';
 import Home from '../pages/Home';
-import Signin from '../pages/Signin';
+import SigninComponent from '../pages/Signin';
 import Burger from '../pages/Burger';
 import Breakfast from '../pages/Breakfast';
 import Drinks from '../pages/Drinks'
+import Bill from '../pages/Bill/Bill';
 import Notification from '../pages/Notification'
 import '../styles/global'
-const Private = ({ Item }) => {
-  const { signed } = useAuth();
+import { useState } from 'react';
 
-  return signed > 0 ? <Item /> : <Signin />; {/* se signed > 0 -> condição ? expressão se verdadeiro : expressão se falso */ }
+const Private = ({ Item, selectedTable, setSelectedTable }) => {
+  const handleTableSelect = (tableNumber) => {
+    setSelectedTable(tableNumber);
+  };
+
+
+  const { user } = useAuth();
+  return user ? < Item handleTableSelect={handleTableSelect} table={selectedTable} /> : <SigninComponent />; 
+
+
 };
 
 const RoutesApp = () => {
-  const { signed } = useAuth();
+  const { user } = useAuth();
+  const [selectedTable, setSelectedTable] = useState(null);
+
+
   return (
-    <div id='principal'> 
+    <div id='principal'>
       <BrowserRouter>
-      {signed && <Navigate />} {/* Renderize o componente de navegação aqui */}
+        {user && <Navigate />} 
         <Routes>
-          <Route exact path="/home" element={<Private Item={Home} />} />
-          <Route exact path="/Breakfast" element={<Private Item={Breakfast} />} />
-          <Route exact path="/Burger" element={<Private Item={Burger} />} />
-          <Route exact path="/Drinks" element={<Private Item={Drinks} />} />
-          <Route exact path="/Notification" element={<Private Item={Notification} />} />
-          <Route path="/" element={<Signin />} />
-          <Route path="*" element={<Signin />} />
+          <Route exact path="/home" element={<Private
+            Item={Home}
+            selectedTable={selectedTable}
+            setSelectedTable={setSelectedTable}
+          />} />
+          <Route exact path="/Breakfast" element={<Private
+            Item={Breakfast}
+            selectedTable={selectedTable}
+            setSelectedTable={setSelectedTable}
+          />} />
+          <Route exact path="/Burger" element={<Private
+            Item={Burger}
+            selectedTable={selectedTable}
+            setSelectedTable={setSelectedTable}
+          />} />
+          <Route exact path="/Drinks" element={<Private 
+          Item={Drinks} 
+          selectedTable={selectedTable}
+          setSelectedTable={setSelectedTable}
+          />} />
+          <Route exact path="/Bill" element={<Private 
+          Item={Bill} 
+          selectedTable={selectedTable}
+          setSelectedTable={setSelectedTable}
+          />} />
+          <Route exact path="/Notification" element={<Private 
+          Item={Notification} 
+          />} />
+          <Route path="/" element={<SigninComponent />} />
+          <Route path="*" element={<SigninComponent />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -36,5 +71,3 @@ const RoutesApp = () => {
 
 export default RoutesApp;
 
-
-//linha 5 e 22

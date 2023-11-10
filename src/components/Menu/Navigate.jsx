@@ -23,6 +23,8 @@ function Navigate() {
     { label: 'Breakfast', key: '/Breakfast' },
     { label: 'Burger & Appetizer', key: '/Burger' },
     { label: 'Drinks', key: '/Drinks' },
+    { label: 'Bill', key: '/Bill' },
+    { label: 'Notification', key: '/Notification' },
     { label: 'Signout', key: 'signout' }
   ];
 

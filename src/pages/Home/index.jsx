@@ -1,5 +1,4 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import * as C from './styles';
 import './style.css';
 import Section from '../../components/Section';
@@ -72,7 +71,11 @@ const listTableData = [
 
 ]
 
-const Home = () => {
+const Home = ({ handleTableSelect, table }) => {
+
+
+
+
 
   return (
     <C.Container className='lateralSection'>
@@ -80,8 +83,8 @@ const Home = () => {
 
         <main>
           <Section
-            title= 'Please select a table to be served.'
-            subtitle='Table selected: []'
+            title='Please select a table to be served.'
+            tableSelected={`Table selected: ${table !== null ? table : ' '}`}
           >
 
             {
@@ -94,27 +97,16 @@ const Home = () => {
                     alt={item.alt}
                     tableNumber={item.tableNumber}
                     tableStatus={item.tableStatus}
+                    onTableSelect={handleTableSelect}
                   />
 
                 )
               })
             }
 
-
           </Section>
         </main>
-
-
       </div>
-
-
-
-
-{/* 
-      <C.Title>Home</C.Title>
-      <Button Text='Log Out' onClick={() => [signout(), navigate('/')]}>
-        Log Out
-      </Button> */}
     </C.Container>
   );
 };
