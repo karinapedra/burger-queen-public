@@ -18,7 +18,7 @@ const SigninComponent = () => {
       return;
     }
 
-    const res = await signin(email, password);
+    const res = await signin(email, password, 'admin');
 
     if (res) {
       setError(res);

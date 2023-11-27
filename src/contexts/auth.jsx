@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          name: 'Karina',
           email: email,
           password: password,
           role: role,
@@ -24,9 +25,9 @@ export const AuthProvider = ({ children }) => {
 
       if (response.ok) {
         const data = await response.json();
-        const { token } = data;
-
-        setItens(token);
+        const { acessToken } = data;
+        console.log(acessToken);
+        setItens(acessToken);
         setUser(data);
 
         return null;

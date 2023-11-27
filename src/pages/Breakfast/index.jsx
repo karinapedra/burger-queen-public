@@ -1,64 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as C from '../Home/styles';
 import '../Home/style.css';
 import Section from "../../components/Section";
 import ListMenu from "../../components/ListMenu";
+import { urlAPI, setProducts } from "../../API/localStorage";
 
-const listMenuData = [
-  {
-    url: '',
-    imageUrl: require('../../assets/icons/BF-HAM-AND-CHEESE-SANDWICH.png'),
-    alt: '',
-    menuItem: 'Ham and Cheese Sandwish',
-    imageStyle: {
-      width: '200px',
-      height: 'auto'
-    }
-  },
-  {
-    url: '',
-    imageUrl: require('../../assets/icons/BF-COFFEE-WITH-MILK.png'),
-    alt: '',
-    menuItem: 'Coffee with Milk',
-    imageStyle: {
-      width: '200px',
-      height: 'auto'
-    }
-  },
-  {
-    url: '',
-    imageUrl: require('../../assets/icons/BF-AMERICAN-COFFEE.png'),
-    alt: '',
-    menuItem: 'American Coffee',
-    imageStyle: {
-      width: '200px',
-      height: 'auto'
-    }
-  },
-  {
-    url: '',
-    imageUrl: require('../../assets/icons/BF-FRESH-FRUIT-JUICE.png'),
-    alt: '',
-    menuItem: 'Fresh Fruit Juice',
-    imageStyle: {
-      width: '200px',
-      height: 'auto'
-    }
-  },
-  {
-    url: '',
-    imageUrl: require('../../assets/icons/BF-TAPIOCA.png'),
-    alt: '',
-    menuItem: 'Tapioca',
-    imageStyle: {
-      width: '200px',
-      height: 'auto'
-    }
-  }
 
-]
 const Breakfast = ({ table }) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = localStorage.getItem('user');
+        const token = JSON.parse(user).acessToken;
 
+        const response = await fetch(`${urlAPI}/products`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+        });
+        const data = await response.json();
+        console.log('Produtos da API:', data);
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  const products = localStorage.getItem('products');
 
   return (
     <C.Container className='lateralSection'>
@@ -68,73 +40,43 @@ const Breakfast = ({ table }) => {
             tableSelected={`Table selected: ${table !== null ? table : ' '}`}
             tableBill='Total: $ [ ]'
           >
-            {
-              listMenuData.map(function (item, index) {
-                return (
-                  <ListMenu
-                    key={index}
-                    url={item.url}
-                    imageUrl={item.imageUrl}
-                    alt={item.alt}
-                    menuItem={item.menuItem}
-                    style={item.imageStyle}
-                  />
+            { console.log('products', products)}
 
-                )
-              })
-            }
+{/* const jsonArray = ['{"result":true,"count":42}','{"result":false,"count":57}'];
+
+
+jsonArray.map((json) => {
+const obj = JSON.parse(json);
+
+console.log(obj.count);
+// Expected output: 42
+
+console.log(obj.result);
+// Expected output: true
+}) */}
+
+             {products && JSON.parse(products).map((item, index) => (
+              item.type === 'breakfast' && (
+                <ListMenu
+                  key={index}
+                  url={item.url}
+                  imageUrl={item.image}
+                  id={item._id}
+                  menuItem={item.name}
+                  price={item.price}
+                  style={{
+                    width: '200px',
+                    height: 'auto'
+                  }}
+                />
+              )
+            ))
+            } 
           </Section>
         </main>
-
       </div>
-
-
-
-
     </C.Container>
   )
 }
-
-
-// const Breakfast = () => {
-
-//   return (
-//     <C.Container className='lateralSection'>
-//       <div className='App'>
-
-//         <main>
-//           <Section
-//             title='Please select a table to be served.'
-//             subtitle='Table selected: []'
-//           >
-
-//             {
-//               listMenuData.map(function (item, index) {
-//                 return (
-//                   <ListTable
-//                     key={index}
-//                     url={item.url}
-//                     imageUrl={item.imageUrl}
-//                     alt={item.alt}
-//                     tableNumber={item.tableNumber}
-//                     tableStatus={item.tableStatus}
-//                   />
-
-//                 )
-//               })
-//             }
-
-
-//           </Section>
-//         </main>
-
-
-//       </div>
-
-
-//     </C.Container>
-//   );
-// };
-
 
 export default Breakfast;

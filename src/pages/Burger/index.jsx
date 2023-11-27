@@ -1,84 +1,64 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as C from '../Home/styles';
 import '../Home/style.css';
 import Section from "../../components/Section";
 import ListMenu from "../../components/ListMenu";
+import { urlAPI, setProducts } from "../../API/localStorage";
 
-const listMenuData = [
-  {
-    url: '',
-    imageUrl: require('../../assets/icons/BA-SINGLE-BURGER.png'),
-    alt: '',
-    menuItem: 'Single Burger', 
-    imageStyle: {
-      width: '200px', 
-      height: 'auto'
-    }
-  },
-  {
-    url: '',
-    imageUrl: require('../../assets/icons/BA-DOUBLE-BURGER.png'),
-    alt: '',
-    menuItem: 'Double Burger',
-    imageStyle: {
-      width: '200px', 
-      height: 'auto'
-    }
-  },
-  {
-    url: '',
-    imageUrl: require('../../assets/icons/BA-ONION-RINGS.png'),
-    alt: '',
-    menuItem: 'Onion Rings',
-    imageStyle: {
-      width: '200px', 
-      height: 'auto'
-    }
-  },
-  {
-    url: '',
-    imageUrl: require('../../assets/icons/BA-FRENCH-FRIES.png'),
-    alt: '',
-    menuItem: 'French Fries',
-    imageStyle: {
-      width: '200px', 
-      height: 'auto'
-    }
-  }
-
-]
 const Burger = ({ table }) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const user = localStorage.getItem('user');
+        const token = JSON.parse(user).acessToken;
+
+        const response = await fetch(`${urlAPI}/products`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+        });
+        const data = await response.json();
+        console.log('Produtos da API:', data);
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  const products = localStorage.getItem('products');
+
   return (
     <C.Container className='lateralSection'>
-     <div className='App'>
-    <main>
-         <Section
+      <div className='App'>
+        <main>
+          <Section
             tableSelected={`Table selected: ${table !== null ? table : ' '}`}
             tableBill='Total: $ [ ]'
           >
-          {
-            listMenuData.map(function (item, index) {
-              return (
-                <ListMenu
-                  key={index}
-                  url={item.url}
-                  imageUrl={item.imageUrl}
-                  alt={item.alt}
-                  menuItem={item.menuItem}
-                  style={item.imageStyle}
-                />
-
-              )
-            })
-          }
+              { products && JSON.parse(products).map((item, index) => (
+                item.type === 'burger' && (
+                  <ListMenu
+                    key={index}
+                    url={item.url}
+                    imageUrl={item.image}
+                    id={item._id}
+                    menuItem={item.name}
+                    price={item.price}
+                    style={{
+                      width: '200px',
+                      height: 'auto'
+                    }}
+                  />
+                )
+              ))
+            }
           </Section>
         </main>
-
-        </div>
-
-
-
-
+      </div>
     </C.Container>
   )
 }
