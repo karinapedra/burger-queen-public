@@ -1,10 +1,6 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Button';
-import useAuth from '../../hooks/useAuth';
+import React, { useState } from 'react';
 import * as C from './styles';
 import './style.css';
-import Header from '../../components/Header';
 import Section from '../../components/Section';
 import ListTable from '../../components/ListTables';
 
@@ -75,19 +71,20 @@ const listTableData = [
 
 ]
 
-const Home = () => {
-  const { signout } = useAuth();
-  const navigate = useNavigate();
+const Home = ({ handleTableSelect, table }) => {
+
+
+
+
 
   return (
-    <C.Container>
+    <C.Container className='lateralSection'>
       <div className='App'>
-        <Header />
 
         <main>
           <Section
-            title= 'Please select a table to be served.'
-            subtitle='Table selected: []'
+            title='Please select a table to be served.'
+            tableSelected={`Table selected: ${table !== null ? table : ' '}`}
           >
 
             {
@@ -100,27 +97,16 @@ const Home = () => {
                     alt={item.alt}
                     tableNumber={item.tableNumber}
                     tableStatus={item.tableStatus}
+                    onTableSelect={handleTableSelect}
                   />
 
                 )
               })
             }
 
-
           </Section>
         </main>
-
-
       </div>
-
-
-
-
-
-      <C.Title>Home</C.Title>
-      <Button Text='Log Out' onClick={() => [signout(), navigate('/')]}>
-        Log Out
-      </Button>
     </C.Container>
   );
 };

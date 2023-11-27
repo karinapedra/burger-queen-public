@@ -2,31 +2,31 @@ import React, { useState } from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import * as C from './styles';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
-const Signin = () => {
+const SigninComponent = () => {
   const { signin } = useAuth();
   const navigate = useNavigate();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = () => {
-    if (!email | !password) {
+  const handleLogin = async () => {
+    if (!email || !password) {
       setError('Fill in all the fields');
       return;
     }
 
-    const res = signin(email, password);
+    const res = await signin(email, password);
 
     if (res) {
       setError(res);
       return;
+    } else {
+      navigate('/home');
+      console.log('entrou');
     }
-
-    navigate('/home');
   };
 
   return (
@@ -53,4 +53,5 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SigninComponent;
+
